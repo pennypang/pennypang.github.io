@@ -24,16 +24,15 @@ var result = fuse.search(searchword);
  showSearchResult(result);
 }
 function showBeginningResult(){
-	var books=[];
-	var items = $('.book').find('ul').map(function() {
+	var links=[];
+	var items = $('.links').find('a').map(function() {
   	var item={};
-    item.id = this.id;
-    item.title = $(this).find(".title").text();
-    item.author= $(this).find(".author").text();
-    item.tags= $(this).find(".tags").text();
- 		books.push(item);
+	item.title = $(this).text();
+    	item.link = $(this).attr('href');
+	console.log(item);
+ 	links.push(item);
 });
-return books;
+return links;
 }
 function showSearchResult(result){
     var html = "";
@@ -54,13 +53,13 @@ function showSearchResult(result){
  <div id="demo">
  <ul class="links">
     <li>
-        <a href="http://wikipedia.org/wiki/List_of_lists_of_ancient_kings"> List of lists of ancient kings</a>
+        <a href="http://wikipedia.org/wiki/List_of_lists_of_ancient_kings" target="_blank" > List of lists of ancient kings</a>
     </li>
      <li>
-        <a href="http://wikipedia.org/wiki/Lists_of_A%26M_Records_artists"> Lists of A&amp;M Records artists</a>
+        <a href="http://wikipedia.org/wiki/Lists_of_A%26M_Records_artists" target="_blank" > Lists of A&amp;M Records artists</a>
     </li>
     <li>
-        <a href=""http://wikipedia.org/wiki/Lists_of_ABC_shows"> Lists of ABC shows</a>
+        <a href="http://wikipedia.org/wiki/Lists_of_ABC_shows" target="_ blank"> Lists of ABC shows</a>
     </li>
     
 </ul>
