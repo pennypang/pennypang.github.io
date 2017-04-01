@@ -48,15 +48,12 @@ function showSearchResult(result){
 	  
 function showSearchResultWithLink(result){
     var html = "";
+     html +="<ul>"
      $.each(result, function (index, item) {
         console.log(item);
-	html += "<ul>"+index+" :";
-	
-        $.each(item, function (index1, item1) {
-            html += '<li>' +index1 +" :"+ item1 + "</li>";
-        });
-        html+="</ul>";
+	html += '<li><a href="'+ item.link+'">' +  item.title + '</a></li>';
     });
+     html+="</ul>";
     $("#demo2").append(html); 
 }	 
   </script>
