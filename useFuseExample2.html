@@ -11,10 +11,10 @@
  
 	var options = {
 	  keys: [{
-	    name: 'title',
+	    name: 'link',
 	    weight: 0.3
 	  }, {
-	    name: 'author',
+	    name: 'title',
 	    weight: 0.7
 	  }]
 	};
@@ -39,7 +39,7 @@ function showSearchResult(result){
      $.each(result, function (index, item) {
         html += "<ul>"+index+" :";
         $.each(item, function (index1, item1) {
-            html += "<li>" + item1 + "</li>";
+            html += "<li>" +index1 +" :"+ item1 + "</li>";
         });
         html+="</ul>";
     });
