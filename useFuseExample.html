@@ -45,7 +45,7 @@ function showSearchResult(result){
      $.each(result, function (index, item) {
         html += "<ul>"+index+" :";
         $.each(item, function (index1, item1) {
-            html += "<li>" + item1 + "</li>";
+            html += "<li>" + index1 +": "+item1 + "</li>";
         });
         html+="</ul>";
     });
