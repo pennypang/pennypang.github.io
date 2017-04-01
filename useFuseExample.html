@@ -10,27 +10,15 @@
 	var data= showBeginningResult();
 	var searchword= document.getElementById("search").value;
  
- // List of books
-/*var books = [
-{
-  title: "Old Man's War fiction",
-  author: 'John X',
-  tags: ['war']
-}, {
-  title: 'Right Ho Jeeves',
-  author: 'P.D. Mans',
-  tags: ['fiction', 'war']
-}];
-*/
-var options = {
-  keys: [{
-    name: 'title',
-    weight: 0.3
-  }, {
-    name: 'author',
-    weight: 0.7
-  }]
-};
+	var options = {
+	  keys: [{
+	    name: 'title',
+	    weight: 0.3
+	  }, {
+	    name: 'author',
+	    weight: 0.7
+	  }]
+	};
 
 var fuse = new Fuse(data, options);
 var result = fuse.search(searchword);
@@ -68,7 +56,7 @@ function showSearchResult(result){
 <body>
  <input id="search" type="text" placeholder="search">
  <button id="myBtn" onclick="myFunction()">Click me</button>
- <div>
+ <div id="demo">
  <ul class="books">
  <li class="book">
    <ul id="book1">
@@ -84,10 +72,8 @@ function showSearchResult(result){
      <li class="tags">fiction, war</li>
    </ul>
    </li>
-    <li>Bob</li>
-    
 </ul>
- </div>
+</div>
   <p id="demo"></p>
 </body>
 </html>
