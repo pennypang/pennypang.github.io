@@ -1,0 +1,93 @@
+<html>
+<head>
+  <title>Use Fuss_JS Search Example</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/fuse/2.6.1/fuse.min.js"></script>
+  <script type="text/javascript">
+   function myFunction() {
+	var data= showBeginningResult();
+	var searchword= document.getElementById("search").value;
+ 
+ // List of books
+/*var books = [
+{
+  title: "Old Man's War fiction",
+  author: 'John X',
+  tags: ['war']
+}, {
+  title: 'Right Ho Jeeves',
+  author: 'P.D. Mans',
+  tags: ['fiction', 'war']
+}];
+*/
+var options = {
+  keys: [{
+    name: 'title',
+    weight: 0.3
+  }, {
+    name: 'author',
+    weight: 0.7
+  }]
+};
+
+var fuse = new Fuse(data, options);
+var result = fuse.search(searchword);
+ 
+ showSearchResult(result);
+}
+
+function showBeginningResult(){
+	var books=[];
+	var items = $('.book').find('ul').map(function() {
+  	var item={};
+    item.id = this.id;
+    item.title = $(this).find(".title").text();
+    item.author= $(this).find(".author").text();
+    item.tags= $(this).find(".tags").text();
+ 		books.push(item);
+});
+return books;
+}
+
+
+function showSearchResult(result){
+    var html = "";
+     $.each(result, function (index, item) {
+        html += "<ul>"+index+" :";
+        $.each(item, function (index1, item1) {
+            html += "<li>" + item1 + "</li>";
+        });
+        html+="</ul>";
+    });
+    $("#demo").append(html); 
+}
+  </script>
+</head>
+<body>
+ <input id="search" type="text" placeholder="search">
+ <button id="myBtn" onclick="myFunction()">Click me</button>
+ <div>
+ <ul class="books">
+ <li class="book">
+   <ul id="book1">
+     <li class="title">Old Man's War fiction</li>
+     <li class="author">John X</li>
+     <li class="tags">war</li>
+   </ul>
+   </li>
+   <li class="book">
+     <ul id="book2">
+     <li class="title">Right Ho Jeeves</li>
+     <li class="author">P.D. Mans</li>
+     <li class="tags">fiction, war</li>
+   </ul>
+   </li>
+    <li>Bob</li>
+    
+</ul>
+ </div>
+  <p id="demo"></p>
+</body>
+</html>
