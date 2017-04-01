@@ -30,7 +30,6 @@ function showBeginningResult(){
   	var item={};
 	item.title = $(this).text();
     	item.link = $(this).attr('href');
-	console.log(item);
  	links.push(item);
 });
 return links;
@@ -50,9 +49,11 @@ function showSearchResult(result){
 function showSearchResultWithLink(result){
     var html = "";
      $.each(result, function (index, item) {
-        html += "<ul>"+index+" :";
+        console.log(item);
+	html += "<ul>"+index+" :";
+	
         $.each(item, function (index1, item1) {
-            html += "<li>" +index1 +" :"+ item1 + "</li>";
+            html += '<li>' +index1 +" :"+ item1 + "</li>";
         });
         html+="</ul>";
     });
@@ -78,8 +79,8 @@ function showSearchResultWithLink(result){
 </ul>
 </div>
   <p id="demo"></p>
-	
+   <p>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</p>
+   <p>Result with linkes</p>
    <p id="demo2"></p>
 </body>
 </html>
-Contact GitHub API Training Shop Blog About
