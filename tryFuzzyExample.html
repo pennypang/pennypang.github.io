@@ -1,95 +1,76 @@
 <html>
 <head>
-  <title>Disney Fuzzy Search Example</title>
+  <title>Wikipedia Fuzzy Search Example</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 
-  <script src="fuzzy.js"></script>
+
+  <script src="../lib/fuzzy.js"></script>
+
   <script type="text/javascript">
-    var characters = [
-        "Lion King - Simba"
-      , "Lion King - Nala"
-      , "Lion King - Sarabi"
-      , "Lion King - Zazu"
-      , "Lion King - Mufasa"
-      , "Lion King - Timon"
-      , "Lion King - Pumba"
-      , "Lion King - Rafiki"
-      , "Lion King - Scar"
-      , "Lion King - Shenzi"
-      , "Lion King - Banzai"
-      , "Lion King - Ed"
-      , "Lion King - Sarafina"
-      , "Aladdin - Aladdin"
-      , "Aladdin - Jasmine"
-      , "Aladdin - Genie"
-      , "Aladdin - Jafar"
-      , "Aladdin - Iago"
-      , "Aladdin - Abu"
-      , "Aladdin - Magic Carpet"
-      , "Aladdin - Sultan"
-      , "Aladdin - Razoul"
-      , "Aladdin - Rajah"
-      , "The Little Mermaid - Ariel"
-      , "The Little Mermaid - Prince Eric"
-      , "The Little Mermaid - Sebastian"
-      , "The Little Mermaid - Flounder"
-      , "The Little Mermaid - Ursula"
-      , "The Little Mermaid - King Triton"
-      , "The Little Mermaid - Scuttle"
-      , "The Little Mermaid - Flotsam and Jetsam"
-      , "The Little Mermaid - Grimsby"
-      , "The Little Mermaid -  Max"
-      , "The Little Mermaid -  Chef Louis"
-      , "The Little Mermaid -  Carlotta"
-      , "The Little Mermaid -  Ariel's sisters"
-      , "Beauty and the Beast - Belle"
-      , "Beauty and the Beast - Beast"
-      , "Beauty and the Beast - Gaston"
-      , "Beauty and the Beast - Maurice"
-      , "Beauty and the Beast - Lumière"
-      , "Beauty and the Beast - Cogsworth"
-      , "Beauty and the Beast - Mrs. Potts"
-      , "Beauty and the Beast - Chip Potts"
-      , "Beauty and the Beast - The Featherduster"
-      , "Beauty and the Beast -  The Wardrobe"
-      , "Beauty and the Beast -  Le Fou"
-      , "Beauty and the Beast -  Monsieur D'Arque"
-      , "Beauty and the Beast -  The Triplets"
-      , "Beauty and the Beast -  The Enchantress"
-      , "Beauty and the Beast -  Phillipe"
-      , "Beauty and the Beast -  Chef Bouche"
-    ];
-    function listCharacters() {
+    function displaySearchResults() {
+      // The user-entered value we're searching for
       var search = $('#search').val();
       var options = {
-          pre: "<b>"
-        , post: "</b>"
-      }
-      var filtered = fuzzy.filter(search, characters, options);
-      // process the results to extract the strings
-      var newCharacters = filtered.map(function(el) {
-        return '<li>' + el.string + '</li>';
+          pre:  '<b>'    // Wrap each character in a <b> tag to bold
+        , post: '</b>'
+        // Each element in wikiLists is an object, not a string. We can pass an `extract`
+        // function that is called on each element in the array to extract the string
+        // to fuzzy search against. In this case, element.title
+        , extract: function(element) {
+            return element.title;
+          }
+      };
+      // Filter!
+      var filtered = fuzzy.filter(search, wikiLists, options);
+      // Map the results to the html we want generated
+      var results = filtered.map(function(entry){
+        return '<li><a href="' + entry.original.url + '">' + entry.string + '</a></li>';
       });
-      $('#characters').html(newCharacters.join(''));
+      // Update the html
+      $('#lists').html(results.join(''));
     }
     $(function() {
       // List the initial characters
-      listCharacters();
+      displaySearchResults();
       // Filter the characters on each change of the textbox
-      $('#search').keyup(listCharacters);
+      $('#search').keyup(displaySearchResults);
     });
   </script>
   <style>
     b {
-      color: red;
+        color: red;
     }
   </style>
 </head>
 <body>
-  <h1>Search Disney Characters</h1>
-  <input type="text" id="search" class="search"></input>
-  <ul id="characters">
-  </ul>
+  <div class="container">
+    <h1>Search Wikipedia Lists of Lists</h1>
+    <input type="text" id="search" class="search" style="height:30px" x-webkit-speech></input>
+    <ul id="lists">
+    </ul>
+  </div>
+  <script>
+  var wikiLists = [
+     {url:"http://wikipedia.org/wiki/List_of_lists_of_ancient_kings", title:"List of lists of ancient kings"}
+    ,{url:"http://wikipedia.org/wiki/Lists_of_A%26M_Records_artists", title:"Lists of A&amp;M Records artists"}
+    ,{url:"http://wikipedia.org/wiki/Lists_of_ABC_shows", title:"Lists of ABC shows"}
+    ,{url:"http://wikipedia.org/wiki/Lists_of_African_Americans", title:"Lists of African Americans"}
+    ,{url:"http://wikipedia.org/wiki/Lists_of_African_Union_members", title:"Lists of African Union members"}
+    ,{url:"http://wikipedia.org/wiki/Lists_of_American_films", title:"Lists of American films"}
+    ,{url:"http://wikipedia.org/wiki/Lists_of_American_football_players", title:"Lists of American football players"}
+    ,{url:"http://wikipedia.org/wiki/Lists_of_American_television_episodes_with_LGBT_themes", title:"Lists of American television episodes with LGBT themes"}
+    ,{url:"http://wikipedia.org/wiki/Lists_of_American_writers", title:"Lists of American writers"}
+    ,{url:"http://wikipedia.org/wiki/Lists_of_Americans", title:"Lists of Americans"}
+    ,{url:"http://wikipedia.org/wiki/Lists_of_Argentine_films", title:"Lists of Argentine films"}
+    ,{url:"http://wikipedia.org/wiki/Lists_of_Armenians", title:"Lists of Armenians"}
+    ,{url:"http://wikipedia.org/wiki/List_of_atheists", title:"List of atheists"}
+    ,{url:"http://wikipedia.org/wiki/Lists_of_Australian_rules_football_leagues", title:"Lists of Australian rules football leagues"}
+    ,{url:"http://wikipedia.org/wiki/Lists_of_curling_clubs", title:"Lists of curling clubs"}
+    ,{url:"http://wikipedia.org/wiki/Lists_of_current_members_of_the_Privy_Council", title:"Lists of current members of the Privy Council"}
+    ,{url:"http://wikipedia.org/wiki/Lists_of_custodes_rotulorum", title:"Lists of custodes rotulorum"}
+    
+  ];
+  </script>
 </body>
 </html>
